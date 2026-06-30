@@ -4,27 +4,17 @@ import joblib
 import os
 
 def extract_color_histogram(image, bins=(8, 8, 8)):
-    """
-    Ekstraksi fitur Color Histogram RGB dari gambar
-    """
-    # Konversi dari BGR ke RGB
-    image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    
-    # Hitung histogram untuk setiap channel
-    hist_r = cv2.calcHist([image_rgb], [0], None, [bins[0]], [0, 256])
-    hist_g = cv2.calcHist([image_rgb], [1], None, [bins[1]], [0, 256])
-    hist_b = cv2.calcHist([image_rgb], [2], None, [bins[2]], [0, 256])
-    
-    # Normalisasi histogram
-    hist_r = cv2.normalize(hist_r, hist_r).flatten()
-    hist_g = cv2.normalize(hist_g, hist_g).flatten()
-    hist_b = cv2.normalize(hist_b, hist_b).flatten()
-    
-    # Gabungkan semua histogram
-    features = np.concatenate([hist_r, hist_g, hist_b])
-    
-    return features
+    image_hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
 
+    features = []
+
+    for i in range(3):
+        hist = cv2.calcHist([image_hsv], [i], None, [bins[i]], [0, 256])
+        hist = cv2.normalize(hist, hist).flatten()
+        features.append(hist)
+
+    return np.concatenate(features)
+    
 def load_model_and_predict():
     """
     Memuat model yang sudah disimpan dan melakukan prediksi

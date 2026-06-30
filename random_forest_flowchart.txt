@@ -1,0 +1,231 @@
+# Random Forest Flowchart - Tomato Classification
+# Copy this code and import into draw.io or diagrams.net
+
+## Flowchart Structure (XML Format for draw.io)
+
+```xml
+<mxfile host="app.diagrams.net" modified="2026-05-07T12:00:00.000Z" agent="5.0" etag="xxx" version="21.6.5" type="device">
+  <diagram name="Random Forest - Tomato Classification" id="random-forest-tomato">
+    <!-- Start Node -->
+    <mxCell id="start" value="START" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+      <mxGeometry x="40" y="40" width="120" height="40" as="geometry"/>
+    </mxCell>
+    
+    <!-- Input Data -->
+    <mxCell id="input" value="Input Dataset&#xa;(975 tomato images)&#xa;Features: HSV Histogram (24)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+      <mxGeometry x="40" y="120" width="120" height="60" as="geometry"/>
+    </mxCell>
+    
+    <!-- Data Preprocessing -->
+    <mxCell id="preprocess" value="DATA PREPROCESSING&#xa;1. Gaussian Blur (5x5)&#xa;2. BGR → HSV Conversion&#xa;3. Mask Background&#xa;4. Extract HSV Histogram" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+      <mxGeometry x="40" y="220" width="120" height="80" as="geometry"/>
+    </mxCell>
+    
+    <!-- Train-Test Split -->
+    <mxCell id="split" value="TRAIN-TEST SPLIT&#xa;80% Training (780)&#xa;20% Testing (195)&#xa;Stratified Sampling" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+      <mxGeometry x="40" y="340" width="120" height="60" as="geometry"/>
+    </mxCell>
+    
+    <!-- Random Forest Parameters -->
+    <mxCell id="params" value="RANDOM FOREST PARAMETERS&#xa;n_estimators=100&#xa;max_depth=4&#xa;min_samples_split=20&#xa;min_samples_leaf=10&#xa;random_state=42" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#0d6efd;" parent="1" vertex="1">
+      <mxGeometry x="40" y="440" width="120" height="80" as="geometry"/>
+    </mxCell>
+    
+    <!-- Build Multiple Trees -->
+    <mxCell id="trees-title" value="BUILD 100 DECISION TREES" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1" parent="1" vertex="1">
+      <mxGeometry x="220" y="440" width="140" height="40" as="geometry"/>
+    </mxCell>
+    
+    <!-- Individual Tree Process -->
+    <mxCell id="tree1" value="TREE 1&#xa;Random Subset&#xa;Max Depth=4&#xa;Min Split=20" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+      <mxGeometry x="220" y="520" width="100" height="60" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="tree2" value="TREE 2&#xa;Random Subset&#xa;Max Depth=4&#xa;Min Split=20" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+      <mxGeometry x="340" y="520" width="100" height="60" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="tree3" value="TREE 3&#xa;Random Subset&#xa;Max Depth=4&#xa;Min Split=20" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+      <mxGeometry x="460" y="520" width="100" height="60" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="tree-dots" value="..." style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1" parent="1" vertex="1">
+      <mxGeometry x="580" y="535" width="40" height="30" as="geometry"/>
+    </mxCell>
+    
+    <mxCell id="tree100" value="TREE 100&#xa;Random Subset&#xa;Max Depth=4&#xa;Min Split=20" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+      <mxGeometry x="640" y="520" width="100" height="60" as="geometry"/>
+    </mxCell>
+    
+    <!-- Decision Tree Logic -->
+    <mxCell id="decision-logic" value="DECISION TREE LOGIC&#xa;1. Select Random Features&#xa;2. Find Best Split&#xa;3. Check Min Samples (20)&#xa;4. Split if Gini Improves&#xa;5. Stop at Depth=4 or Min Leaf=10" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" vertex="1">
+      <mxGeometry x="220" y="620" width="160" height="100" as="geometry"/>
+    </mxCell>
+    
+    <!-- Voting Process -->
+    <mxCell id="voting" value="MAJORITY VOTING&#xa;All 100 Trees Predict&#xa;Count Votes per Class&#xa;Select Majority" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#0d6efd;" parent="1" vertex="1">
+      <mxGeometry x="40" y="620" width="120" height="60" as="geometry"/>
+    </mxCell>
+    
+    <!-- Output Classes -->
+    <mxCell id="output" value="OUTPUT CLASSIFICATION&#xa;• matang (ripe)&#xa;• mentah (unripe)&#xa;• setengah_matang (half-ripe)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+      <mxGeometry x="40" y="720" width="120" height="60" as="geometry"/>
+    </mxCell>
+    
+    <!-- Performance Metrics -->
+    <mxCell id="metrics" value="PERFORMANCE METRICS&#xa;Training Accuracy: 92.56%&#xa;Testing Accuracy: 92.82%&#xa;Overall Accuracy: 92.62%&#xa;Precision: 92.90%&#xa;Recall: 92.62%&#xa;F1-Score: 92.63%" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+      <mxGeometry x="40" y="820" width="120" height="100" as="geometry"/>
+    </mxCell>
+    
+    <!-- Arrows -->
+    <mxCell id="arrow1" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" parent="1" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="100" y="80" as="sourcePoint"/>
+        <mxPoint x="100" y="120" as="targetPoint"/>
+      </mxGeometry>
+    </mxCell>
+    
+    <mxCell id="arrow2" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" parent="1" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="100" y="180" as="sourcePoint"/>
+        <mxPoint x="100" y="220" as="targetPoint"/>
+      </mxGeometry>
+    </mxCell>
+    
+    <mxCell id="arrow3" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" parent="1" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="100" y="300" as="sourcePoint"/>
+        <mxPoint x="100" y="340" as="targetPoint"/>
+      </mxGeometry>
+    </mxCell>
+    
+    <mxCell id="arrow4" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" parent="1" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="100" y="400" as="sourcePoint"/>
+        <mxPoint x="100" y="440" as="targetPoint"/>
+      </mxGeometry>
+    </mxCell>
+    
+    <mxCell id="arrow5" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="160" y="480" as="sourcePoint"/>
+        <mxPoint x="220" y="480" as="targetPoint"/>
+      </mxGeometry>
+    </mxCell>
+    
+    <mxCell id="arrow6" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" parent="1" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="100" y="520" as="sourcePoint"/>
+        <mxPoint x="100" y="620" as="targetPoint"/>
+      </mxGeometry>
+    </mxCell>
+    
+    <mxCell id="arrow7" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" parent="1" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="100" y="680" as="sourcePoint"/>
+        <mxPoint x="100" y="720" as="targetPoint"/>
+      </mxGeometry>
+    </mxCell>
+    
+    <mxCell id="arrow8" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" parent="1" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="100" y="780" as="sourcePoint"/>
+        <mxPoint x="100" y="820" as="targetPoint"/>
+      </mxGeometry>
+    </mxCell>
+    
+    <!-- Tree connections -->
+    <mxCell id="tree-arrow1" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" parent="1" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="270" y="580" as="sourcePoint"/>
+        <mxPoint x="300" y="620" as="targetPoint"/>
+      </mxGeometry>
+    </mxCell>
+    
+    <mxCell id="tree-arrow2" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" parent="1" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="390" y="580" as="sourcePoint"/>
+        <mxPoint x="300" y="620" as="targetPoint"/>
+      </mxGeometry>
+    </mxCell>
+    
+    <mxCell id="tree-arrow3" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" parent="1" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="510" y="580" as="sourcePoint"/>
+        <mxPoint x="300" y="620" as="targetPoint"/>
+      </mxGeometry>
+    </mxCell>
+    
+    <mxCell id="tree-arrow4" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" parent="1" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="690" y="580" as="sourcePoint"/>
+        <mxPoint x="300" y="620" as="targetPoint"/>
+      </mxGeometry>
+    </mxCell>
+  </diagram>
+</mxfile>
+```
+
+## Alternative: Mermaid Syntax (for online editors)
+
+```mermaid
+flowchart TD
+    A[START] --> B[Input Dataset<br/>975 tomato images<br/>Features: HSV Histogram 24]
+    B --> C[DATA PREPROCESSING<br/>1. Gaussian Blur 5x5<br/>2. BGR → HSV<br/>3. Mask Background<br/>4. Extract HSV Histogram]
+    C --> D[TRAIN-TEST SPLIT<br/>80% Training 780<br/>20% Testing 195<br/>Stratified Sampling]
+    D --> E[RANDOM FOREST PARAMETERS<br/>n_estimators=100<br/>max_depth=4<br/>min_samples_split=20<br/>min_samples_leaf=10<br/>random_state=42]
+    
+    E --> F[BUILD 100 DECISION TREES]
+    F --> T1[TREE 1<br/>Random Subset<br/>Max Depth=4<br/>Min Split=20]
+    F --> T2[TREE 2<br/>Random Subset<br/>Max Depth=4<br/>Min Split=20]
+    F --> T3[TREE 3<br/>Random Subset<br/>Max Depth=4<br/>Min Split=20]
+    F --> TD[...]
+    F --> T100[TREE 100<br/>Random Subset<br/>Max Depth=4<br/>Min Split=20]
+    
+    T1 --> DL[DECISION TREE LOGIC<br/>1. Select Random Features<br/>2. Find Best Split<br/>3. Check Min Samples 20<br/>4. Split if Gini Improves<br/>5. Stop at Depth=4 or Min Leaf=10]
+    T2 --> DL
+    T3 --> DL
+    T100 --> DL
+    
+    E --> V[MAJORITY VOTING<br/>All 100 Trees Predict<br/>Count Votes per Class<br/>Select Majority]
+    V --> O[OUTPUT CLASSIFICATION<br/>• matang ripe<br/>• mentah unripe<br/>• setengah_matang half-ripe]
+    O --> P[PERFORMANCE METRICS<br/>Training Accuracy 92.56%<br/>Testing Accuracy 92.82%<br/>Overall Accuracy 92.62%<br/>Precision 92.90%<br/>Recall 92.62%<br/>F1-Score 92.63%]
+    
+    style A fill:#d5e8d4,stroke:#82b366
+    style B fill:#dae8fc,stroke:#6c8ebf
+    style C fill:#fff2cc,stroke:#d6b656
+    style D fill:#f8cecc,stroke:#b85450
+    style E fill:#e1d5e7,stroke:#0d6efd
+    style F fill:#f5f5f5,stroke:#666666
+    style T1 fill:#d5e8d4,stroke:#82b366
+    style T2 fill:#d5e8d4,stroke:#82b366
+    style T3 fill:#d5e8d4,stroke:#82b366
+    style T100 fill:#d5e8d4,stroke:#82b366
+    style DL fill:#ffe6cc,stroke:#d79b00
+    style V fill:#e1d5e7,stroke:#0d6efd
+    style O fill:#d5e8d4,stroke:#82b366
+    style P fill:#f8cecc,stroke:#b85450
+```
+
+## Instructions for draw.io:
+
+1. Go to https://app.diagrams.net/ or https://draw.io/
+2. Click "File" → "Import from..."
+3. Copy the XML code above (first code block)
+4. Paste it into the import dialog
+5. The flowchart will be automatically generated
+
+## Instructions for Mermaid:
+
+1. Go to https://mermaid.live/ or any Mermaid editor
+2. Copy the Mermaid code (second code block)
+3. Paste it into the editor
+4. The flowchart will be rendered automatically
+
+## Key Features Highlighted:
+
+- **Data Pipeline**: From raw images to features
+- **Ensemble Learning**: 100 decision trees working together
+- **Hyperparameters**: Specific settings from your code
+- **Performance Metrics**: Actual results from your model
+- **Color Coding**: Different colors for different process stages

@@ -1,0 +1,55 @@
+{
+  "model_info": {
+    "name": "Random Forest Classifier",
+    "classes": [
+      "matang",
+      "mentah",
+      "setengah_matang"
+    ],
+    "total_samples": 975,
+    "features": 24,
+    "last_updated": "2026-04-28T15:29:55.612356"
+  },
+  "overall_metrics": {
+    "accuracy": 92.62,
+    "precision": 92.9,
+    "recall": 92.62,
+    "f1_score": 92.63
+  },
+  "per_class_metrics": {
+    "matang": {
+      "accuracy": 94.1,
+      "correct": 321,
+      "total": 341
+    },
+    "mentah": {
+      "accuracy": 99.6,
+      "correct": 231,
+      "total": 232
+    },
+    "setengah_matang": {
+      "accuracy": 87.3,
+      "correct": 351,
+      "total": 402
+    }
+  },
+  "confusion_matrix": {
+    "actual_vs_predicted": {
+      "matang": {
+        "matang": 321,
+        "mentah": 0,
+        "setengah_matang": 20
+      },
+      "mentah": {
+        "matang": 0,
+        "mentah": 231,
+        "setengah_matang": 1
+      },
+      "setengah_matang": {
+        "matang": 51,
+        "mentah": 0,
+        "setengah_matang": 351
+      }
+    }
+  }
+}
