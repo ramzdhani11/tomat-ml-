@@ -1,3 +1,5 @@
+print("🔥🔥🔥 APP.PY VERSION X - LOADED 🔥🔥🔥", flush=True)
+
 from flask import Flask, request, jsonify
 import cv2
 import numpy as np
@@ -29,7 +31,6 @@ CONFIDENCE_THRESHOLD = 0.30
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-
 def load_model():
     global model, class_names, model_load_error
     try:
@@ -57,6 +58,7 @@ def load_model():
 
 # ⬇️ TAMBAHKAN INI — dipanggil saat modul di-import (baik oleh Gunicorn maupun python app.py)
 load_model()
+print(f"🔥 SETELAH load_model() DIPANGGIL | model is None: {model is None} | error: {model_load_error}", flush=True)
 
 def extract_histogram(image):
     """
