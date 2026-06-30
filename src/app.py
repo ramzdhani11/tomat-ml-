@@ -21,7 +21,7 @@ BINS         = (8, 8, 8)
 
 model       = None
 class_names = CLASS_NAMES.copy()
-model_load_error = None   # ← tambahkan ini
+model_load_error = None
 
 CONFIDENCE_THRESHOLD = 0.30
 
@@ -53,6 +53,10 @@ def load_model():
         print(f"❌ Gagal memuat model: {e}")
         traceback.print_exc()
         return False
+
+
+# ⬇️ TAMBAHKAN INI — dipanggil saat modul di-import (baik oleh Gunicorn maupun python app.py)
+load_model()
 
 def extract_histogram(image):
     """
@@ -361,14 +365,14 @@ if __name__ == '__main__':
     print("🍅 TOMAT CLASSIFICATION API")
     print("=" * 60)
 
-    if load_model():
+    if model is not None:
         print(f"✅ Model    : {type(model).__name__}")
         print(f"🎯 Kelas    : {class_names}")
         print(f"📐 IMG_SIZE : {IMG_SIZE}")
         print(f"📊 BINS     : {BINS}")
         print(f"🔒 Threshold: {CONFIDENCE_THRESHOLD} ({CONFIDENCE_THRESHOLD*100:.0f}%)")
     else:
-        print("❌ Model gagal dimuat! Cek path:", MODEL_PATH)
+        print("❌ Model gagal dimuat! Cek path:", MODEL_PATH, "| Error:", model_load_error)
         exit(1)
 
     print("\n📡 Endpoints:")
@@ -379,9 +383,5 @@ if __name__ == '__main__':
     print("=" * 60)
 
     port = int(os.environ.get("PORT", 5000))
-    app.run(
-    host="0.0.0.0",
-    port=port,
-    debug=False
-)
+    app.run(host="0.0.0.0", port=port, debug=False)
 
