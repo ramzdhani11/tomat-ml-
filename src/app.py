@@ -21,6 +21,7 @@ BINS         = (8, 8, 8)
 
 model       = None
 class_names = CLASS_NAMES.copy()
+model_load_error = None   # ← tambahkan ini
 
 CONFIDENCE_THRESHOLD = 0.30
 
@@ -30,7 +31,7 @@ def allowed_file(filename):
 
 
 def load_model():
-    global model, class_names
+    global model, class_names, model_load_error
     try:
         if os.path.exists(MODEL_PATH):
             model = joblib.load(MODEL_PATH)
@@ -43,12 +44,15 @@ def load_model():
             print(f"✅ Model berhasil dimuat | Kelas: {class_names}")
             return True
         else:
-            print(f"❌ File model tidak ditemukan: {MODEL_PATH}")
+            model_load_error = f"File model tidak ditemukan: {MODEL_PATH}"
+            print(f"❌ {model_load_error}")
             return False
     except Exception as e:
+        import traceback
+        model_load_error = f"{type(e).__name__}: {str(e)}"
         print(f"❌ Gagal memuat model: {e}")
+        traceback.print_exc()
         return False
-
 
 def extract_histogram(image):
     """
@@ -181,6 +185,7 @@ def home():
         'success':              True,
         'message':              '🍅 Tomat Classification API is running!',
         'model_loaded':         model is not None,
+        'model_load_error':     model_load_error,
         'classes':              class_names,
         'confidence_threshold': CONFIDENCE_THRESHOLD,
         'endpoints': {
