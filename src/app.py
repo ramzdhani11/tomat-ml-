@@ -356,34 +356,32 @@ def internal_error(e):
     return jsonify({'success': False, 'error': 'Internal server error'}), 500
 
 
-# Load model di level modul (BUKAN di dalam if __name__ == '__main__')
-# supaya tetap jalan baik saat dijalankan lewat gunicorn maupun "python src/app.py".
-print("=" * 60)
-print("🍅 TOMAT CLASSIFICATION API")
-print("=" * 60)
-
-if load_model():
-    print(f"✅ Model    : {type(model).__name__}")
-    print(f"🎯 Kelas    : {class_names}")
-    print(f"📐 IMG_SIZE : {IMG_SIZE}")
-    print(f"📊 BINS     : {BINS}")
-    print(f"🔒 Threshold: {CONFIDENCE_THRESHOLD} ({CONFIDENCE_THRESHOLD*100:.0f}%)")
-else:
-    print("❌ Model gagal dimuat! Cek path:", MODEL_PATH)
-
-print("\n📡 Endpoints:")
-print("  GET  /        - Info API")
-print("  GET  /health  - Health check")
-print("  POST /predict - Prediksi kematangan tomat")
-print("  GET  /info    - Info model")
-print("=" * 60)
-
 if __name__ == '__main__':
-    # Hanya dipakai untuk testing lokal (python src/app.py).
-    # Di Railway/production, gunicorn yang menjalankan app, baris ini tidak dipakai.
+    print("=" * 60)
+    print("🍅 TOMAT CLASSIFICATION API")
+    print("=" * 60)
+
+    if load_model():
+        print(f"✅ Model    : {type(model).__name__}")
+        print(f"🎯 Kelas    : {class_names}")
+        print(f"📐 IMG_SIZE : {IMG_SIZE}")
+        print(f"📊 BINS     : {BINS}")
+        print(f"🔒 Threshold: {CONFIDENCE_THRESHOLD} ({CONFIDENCE_THRESHOLD*100:.0f}%)")
+    else:
+        print("❌ Model gagal dimuat! Cek path:", MODEL_PATH)
+        exit(1)
+
+    print("\n📡 Endpoints:")
+    print("  GET  /        - Info API")
+    print("  GET  /health  - Health check")
+    print("  POST /predict - Prediksi kematangan tomat")
+    print("  GET  /info    - Info model")
+    print("=" * 60)
+
     port = int(os.environ.get("PORT", 5000))
     app.run(
-        host="0.0.0.0",
-        port=port,
-        debug=False
-    )
+    host="0.0.0.0",
+    port=port,
+    debug=False
+)
+
